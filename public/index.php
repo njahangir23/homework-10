@@ -70,22 +70,22 @@ if ($uriArray[1] === 'api' && $uriArray[2] === 'posts') {
             $postController->getAllPosts();
         }
     }
+}
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $postController->savePost();
-    }
+}
 
     // Update post by ID
-    if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
         $id = isset($uriArray[3]) ? intval($uriArray[3]) : null;
         $postController->updatePost($id);
-    }
+}
 
     // Delete post by ID
-    if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         $id = isset($uriArray[3]) ? intval($uriArray[3]) : null;
         $postController->deletePost($id);
-    }
 }
 
 //views
@@ -125,7 +125,7 @@ if ($uriArray[1] === 'posts-delete' && $_SERVER['REQUEST_METHOD'] === 'GET') {
     $postController->postsDeleteView();
 }
 
-if ($uriArray[1] === '' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+if ($uriArray[1] === 'posts' && $_SERVER['REQUEST_METHOD'] === 'GET') {
     $postController = new PostController();
     $postController->postsView();
 }

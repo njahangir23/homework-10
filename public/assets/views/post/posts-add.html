@@ -86,6 +86,10 @@
                                 $('#content').addClass('error-border');
                                 $('#content-error').append(` <span class='error-text'>${data.responseJSON?.requiredContent}</span>`);
                             }
+                            if (data.responseJSON?.contentShort) {
+                            $('#content').addClass('error-border');
+                            $('#content-error').append(`<span class='error-text'>${data.responseJSON?.contentShort}</span>`);
+                            }
                         }
                     });
                 });

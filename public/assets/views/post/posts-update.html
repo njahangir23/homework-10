@@ -21,9 +21,9 @@
                     <input type="text" class="form-control" id="title" placeholder="Enter title">
                 </div>
                 <div class="form-group margin-ten">
-                    <label for="body">Body</label>
-                    <label id="body-error"></label>
-                    <textarea class="form-control" id="body" placeholder="Enter body"></textarea>
+                    <label for="content">Content</label>
+                    <label id="content-error"></label>
+                    <textarea class="form-control" id="content" placeholder="Enter content"></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary submit-button margin-twenty">Submit</button>
@@ -43,18 +43,18 @@
                     success: function (data) {
                         const post = data[0];
                         $('#title').val(post.title);
-                        $('#body').val(post.body);
+                        $('#content').val(post.content);
                     }
                 });
 
                 $('#form-id').on('submit', function (e) {
                     e.preventDefault();
                     const title = $('#title').val();
-                    const body = $('#body').val();
+                    const content = $('#content').val();
 
                     const data = {
                         title,
-                        body,
+                        content,
                     };
 
                     $.ajax({
@@ -67,9 +67,9 @@
                         },
                         error: function (data) {
                             $('#title-error').html('');
-                            $('#body-error').html('');
+                            $('#content-error').html('');
                             $('#title').removeClass('error-border');
-                            $('#body').removeClass('error-border');
+                            $('#content').removeClass('error-border');
 
                             if (data.responseJSON?.requiredTitle) {
                                 $('#title').addClass('error-border');
@@ -79,13 +79,13 @@
                                 $('#title').addClass('error-border');
                                 $('#title-error').append(` <span class='error-text'>${data.responseJSON?.titleShort}</span>`);
                             }
-                            if (data.responseJSON?.requiredBody) {
-                                $('#body').addClass('error-border');
-                                $('#body-error').append(` <span class='error-text'>${data.responseJSON?.requiredBody}</span>`);
+                            if (data.responseJSON?.requiredContent) {
+                                $('#content').addClass('error-border');
+                                $('#content-error').append(` <span class='error-text'>${data.responseJSON?.requiredContent}</span>`);
                             }
-                            if (data.responseJSON?.bodyShort) {
-                                $('#body').addClass('error-border');
-                                $('#body-error').append(` <span class='error-text'>${data.responseJSON?.bodyShort}</span>`);
+                            if (data.responseJSON?.contentShort) {
+                                $('#content').addClass('error-border');
+                                $('#content-error').append(` <span class='error-text'>${data.responseJSON?.contentShort}</span>`);
                             }
                         }
                     });

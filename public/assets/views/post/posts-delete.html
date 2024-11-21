@@ -33,7 +33,7 @@
                         $.each(data, function (key, value) {
                             console.log(value)
                             $('#post-delete').append(`
-                                   "${value['title']}" by ${value['author']}?`)
+                                   "${value['title']}" ${value['content']}?`)
                         });
                     }
                 });
