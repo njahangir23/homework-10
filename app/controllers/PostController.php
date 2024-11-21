@@ -9,24 +9,24 @@ class PostController
     public function validatePost($inputData) {
         $errors = [];
         $title = $inputData['title'];
-        $body = $inputData['body'];
+        $content = $inputData['content'];
 
         if ($title) {
-            $title = htmlspecialchars($title, ENT_QUOTES | ENT_HTML5, 'UTF-8', true);
+            $title = htmlspecialchars($title, ENT_QUOTES|ENT_HTML5, 'UTF-8', true);
             if (strlen($title) < 2) {
                 $errors['titleShort'] = 'Title is too short';
             }
         } else {
-            $errors['requiredTitle'] = 'Title is required';
+            $errors['requiredTitle'] = 'Title is needed';
         }
 
-        if ($body) {
-            $body = htmlspecialchars($body, ENT_QUOTES | ENT_HTML5, 'UTF-8', true);
-            if (strlen($body) < 5) {
-                $errors['bodyShort'] = 'Body is too short';
+        if ($content) {
+            $content = htmlspecialchars($content, ENT_QUOTES|ENT_HTML5, 'UTF-8', true);
+            if (strlen($content) < 5) {
+                $errors['contentShort'] = 'Body is too short';
             }
         } else {
-            $errors['requiredBody'] = 'Body is required';
+            $errors['requiredContent'] = 'Body is required';
         }
 
         if (count($errors)) {
@@ -36,7 +36,7 @@ class PostController
         }
         return [
             'title' => $title,
-            'body' => $body,
+            'content' => $content,
         ];
     }
 
@@ -60,7 +60,7 @@ class PostController
     public function savePost() {
         $inputData = [
             'title' => $_POST['title'] ? $_POST['title'] : false,
-            'body' => $_POST['body'] ? $_POST['body'] : false,
+            'content' => $_POST['content'] ? $_POST['content'] : false,
         ];
         $postData = $this->validatePost($inputData);
 
@@ -68,7 +68,7 @@ class PostController
         $post->savePost(
             [
                 'title' => $postData['title'],
-                'body' => $postData['body'],
+                'content' => $postData['content'],
             ]
         );
 
@@ -85,12 +85,11 @@ class PostController
             exit();
         }
 
-        // No built-in super global for PUT
         parse_str(file_get_contents('php://input'), $_PUT);
 
         $inputData = [
             'title' => $_PUT['title'] ? $_PUT['title'] : false,
-            'body' => $_PUT['body'] ? $_PUT['body'] : false,
+            'content' => $_PUT['content'] ? $_PUT['content'] : false,
         ];
         $postData = $this->validatePost($inputData);
 
@@ -99,7 +98,7 @@ class PostController
             [
                 'id' => $id,
                 'title' => $postData['title'],
-                'body' => $postData['body'],
+                'content' => $postData['content'],
             ]
         );
 
@@ -149,4 +148,6 @@ class PostController
         include '../public/assets/views/post/posts-update.html';
         exit();
     }
-}
+
+    
+} 

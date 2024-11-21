@@ -6,28 +6,28 @@ use app\models\Model;
 
 class Post extends Model {
 
-    public function getAllPosts() {
-        $query = "SELECT * FROM posts";
-        return $this->fetchAll($query);
-    }
-
     public function getPostById($id) {
-        $query = "SELECT * FROM posts WHERE id = :id";
+        $query = "select * from posts WHERE id = :id";
         return $this->fetchAllWithParams($query, ['id' => $id]);
     }
 
+    public function getAllPosts() {
+        $query = "select * from posts";
+        return $this->fetchAll($query);
+    }
+
     public function getAllPostsByTitle($title) {
-        $query = "SELECT * FROM posts WHERE title LIKE :title";
+        $query = "select * from posts WHERE title LIKE :title";
         return $this->fetchAllWithParams($query, ['title' => '%' . $title . '%']);
     }
 
     public function savePost($inputData) {
-        $query = "INSERT INTO posts (title, body) VALUES (:title, :body)";
+        $query = "insert into posts (title, content) VALUES (:title, :content)";
         return $this->fetchAllWithParams($query, $inputData);
     }
 
     public function updatePost($inputData) {
-        $query = "UPDATE posts SET title = :title, body = :body WHERE id = :id";
+        $query = "update posts set title = :title, content = :content WHERE id = :id";
         return $this->fetchAllWithParams($query, $inputData);
     }
 
